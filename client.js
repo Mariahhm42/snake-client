@@ -1,16 +1,14 @@
 const net = require("net");
 
-const { IP, PORT } = require("./constants");
+const { IP, PORT } = require("./constants"); //imports from the constatnts module
 
 // Establishes a connection with the game server
 const connect = function () {
   const conn = net.createConnection({
-    host: "localhost",
-    port: 3000,
+    host: IP, port: PORT
   });
 
-  // Interpret data received as text
-  conn.setEncoding("utf8");
+  conn.setEncoding("utf8"); // Interprets tthe data received as text
 
  
   conn.on("data", (data) => {
@@ -19,15 +17,13 @@ const connect = function () {
 
   // Send a message to the server once the connection is established
   conn.on("connect", () => {
-    console.log("Connected to the server!");
-    conn.write("Name: MA");
-    conn.write("Move: up");
+    console.log("Connected to the server!"); //msg is logged after connection is successful
+    conn.write("Name: MA"); //this sets's the player's name.
+    conn.write("Move: up"); 
 
-    setTimeout(() => conn.write("Move: up"), 50); 
-    setTimeout(() => conn.write("Move: down"), 100);
-
-    // Experiment: Repeated moves (comment out if not testing)
-    setInterval(() => conn.write("Move: up"), 50); // Moves up every 50ms
+    setTimeout(() => conn.write("Move: up"), 50); //move up after 50ms
+    setTimeout(() => conn.write("Move: down"), 100); //moves down after 100ms
+    setInterval(() => conn.write("Move: up"), 50); // continues to Move up every 50ms
   });
 
   return conn;
