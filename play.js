@@ -1,4 +1,4 @@
-const assert = require('chai').assert;
+// const assert = require('chai').assert;
 const { connect } = require(".src/client");
  
 console.log("Connecting ..."); //lets user know that connection is being attempted
