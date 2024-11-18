@@ -8,11 +8,23 @@ const setupInput = function () {
     return stdin; // return the stdin object so we can use it elsewhere in the progr
   };
   
+
   const handleUserInput = function (key) {
     if (key === "\u0003") {
       console.log("Now exiting the game! Bye Bye!");
       process.exit();
     }
+    //commands to send movements 
+    if (key === 'w') connection.write("Move: up");
+    if (key === 's') connection.write("Move: down");
+    if (key === 'a') connection.write("Move: left");
+    if (key === 'd') connection.write("Move: right");
+
+    //commands to send message as user 
+    if (key === '2') connection.write("Say: In your face!");
+    if (key === '4') connection.write("Say: Out of my way");
+    if (key === '6') connection.write("Say: Goodjob");
+    if (key === '8') connection.write("Move: I won!");
   };
 
   module.exports = { setupInput };
