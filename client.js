@@ -1,26 +1,35 @@
-//const connect function
-// establishes a connection with the game server
-
 const net = require("net");
 
+// Establishes a connection with the game server
 const connect = function () {
-    const conn = net.createConnection({
-      host: "localhost",
-      port: 50541
-    });
-    
-    conn.setEncoding("utf8"); //converts incoming binary data to human-readable text
-  
-    conn.on("connect", () => {
-      console.log("Connected to the game server successfully!");
-
-      conn.write("Name: MA");
+  const conn = net.createConnection({
+    host: "localhost",
+    port: 3000,
   });
-    
-    conn.on("data", (data) => {
-      console.log("Server says:", data); //logs messages sent by server 
-    });
-  
-    return conn; //returns conn object for interaction to occur
-  };
-  module.export = { connect };
+
+  // Interpret data received as text
+  conn.setEncoding("utf8");
+
+ 
+  conn.on("data", (data) => {
+    console.log("Server says: ", data);
+  });
+
+  // Send a message to the server once the connection is established
+  conn.on("connect", () => {
+    console.log("Connected to the server!");
+    conn.write("Name: MA");
+    conn.write("Move: up");
+
+    setTimeout(() => conn.write("Move: up"), 50); 
+    setTimeout(() => conn.write("Move: up"), 100);
+
+    // Experiment: Repeated moves (comment out if not testing)
+    setInterval(() => conn.write("Move: up"), 50); // Moves up every 50ms
+  });
+
+  return conn;
+};
+
+// Export the connect function so it can be used in play.js
+module.exports = { connect };
