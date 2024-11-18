@@ -1,5 +1,22 @@
-// const assert = require('chai').assert;
-const { connect } = require(".src/client");
- 
-console.log("Connecting ..."); //lets user know that connection is being attempted
-connect(); //connect function is called to establish the connection
+const connect= require("./client.js"); // Import the connect function from client.js
+
+// return the stdin object so we can use it elsewhere in the progr
+const setupInput = function () {
+  const stdin = process.stdin; // create variable to hold the stdin object so we don't have to type process.stdin multiple times
+  stdin.setRawMode(true); // Raw Mode allows us to listen for individual keypresses instead of waiting for the user to press enter
+  stdin.setEncoding("utf8");// utf8 encoding is set so that we can read the text data that is input
+  stdin.resume(); ; // resume stdin so the program can listen for input
+  stdin.on("data", handleUserInput);
+  return stdin; // return the stdin object so we can use it elsewhere in the progr
+};
+
+const handleUserInput = function (key) {
+  if (key === "\u0003") {
+    console.log("Now exiting the game! Bye Bye!");
+    process.exit();
+  }
+};
+
+console.log("Connecting ...");
+connect();
+setupInput(); //setup input handler
