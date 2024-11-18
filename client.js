@@ -1,5 +1,4 @@
 const net = require("net");
-
 const { IP, PORT } = require("./constants"); //imports from the constatnts module
 
 // Establishes a connection with the game server

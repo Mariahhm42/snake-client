@@ -1,5 +1,5 @@
 const net = require("net"); //imports net for creating TCP server,
-
+const assert = require('chai').assert;
 const server = net.createServer();
 
 // new client gets detected and greetings ensues 
